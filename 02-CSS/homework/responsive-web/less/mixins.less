@@ -1,1 +1,21 @@
 // Mixins acá
+.flex(@direccion: row, @justify: center, @align: center){
+    display: flex;
+    flex-direction: @direccion;
+    justify-content: @justify;
+    align-items: @align;
+}
+
+.img-rounded(@radius: 20px){
+    border-radius: @radius;
+}
+
+.btn-constructor(@background, @color, @radius: 10px){
+    background-color: @background;
+    color: @color;
+    border-radius: @radius;
+    &:hover{
+        background-color: blue;
+        color: yellow;
+    }
+}
