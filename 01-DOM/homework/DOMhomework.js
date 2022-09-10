@@ -89,6 +89,12 @@ function buildToDo(todo, index) {
 function buildToDos(toDos) {
   // Tu código acá:
   let newArray = toDos.map(buildToDo);
+  
+  //opcion sin optimizar:
+  /*let newArray = toDos.map(function(element, index){
+    return buildTodo(element, index);
+  });*/
+
   return newArray;
 }
 
