@@ -61,13 +61,16 @@ var matchFunctionMaker = function(selector) {
   } else if (selectorType === "tag.class") {
     matchFunction = function(el){
       let arr = selector.split('.');
+      // OPCION SIN RECURSIVIDAD
       // if(el.tagName.toLowerCase() === arr[0].toLowerCase()){
       //   for (let i = 0; i < el.classList.length; i++) {
       //     if(el.classList[i] === arr[1]) return true;
       //   }
       // }
       // return false;
+      // OPCION CON RECURSIVIDAD - OPTIMIZADA
       return (matchFunctionMaker(arr[0])(el) && matchFunctionMaker('.' + arr[1])(el));
+      //"(arr[0])" retorna una funcion (clousure) y la ejecuto con "(el)". "el" es un elemento del DOM
     }
   } else if (selectorType === "tag") {
     matchFunction = function (el) {
