@@ -9,7 +9,13 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
   // usa matchFunc para identificar elementos que matchien
 
   // TU CÓDIGO AQUÍ
-  
+  if(matchFunc(startEl)) resultSet.push(startEl);
+  for (let i = 0; i < startEl.children.length; i++) {
+    let child = startEl.children[i];
+    resultSet = resultSet.concat(traverseDomAndCollectElements(matchFunc, child));
+    //resultSet = [...resultSet, ...traverseDomAndCollectElements(matchFunc, child)];
+  }
+  return resultSet;
 };
 
 // Detecta y devuelve el tipo de selector
@@ -18,7 +24,19 @@ var traverseDomAndCollectElements = function(matchFunc, startEl) {
 
 var selectorTypeMatcher = function(selector) {
   // tu código aquí
-  
+  if(selector[0] === '#') return 'id';
+  if(selector[0] === '.') return 'class';
+  for (let i = 1; i < selector.length; i++) {
+    if(selector[i] === '.') return 'tag.class';
+  }
+  //EXTRA - Selector de Jerarquia
+  for (let i = 1; i < selector.length; i++) {
+    if(selector[i] === '>') return 'child.combinator';
+  }
+  for (let i = 1; i < selector.length; i++) {
+    if(selector[i] === ' ') return 'descendant.combinator';
+  }
+  return 'tag';
 };
 
 // NOTA SOBRE LA FUNCIÓN MATCH
@@ -30,13 +48,56 @@ var matchFunctionMaker = function(selector) {
   var selectorType = selectorTypeMatcher(selector);
   var matchFunction;
   if (selectorType === "id") { 
-   
+    matchFunction = function(el){
+      return ('#' + el.id === selector);
+    }
   } else if (selectorType === "class") {
-    
+    matchFunction = function(el){
+      if(el.classList.length === 1) return ('.' + el.className === selector);
+      if(el.classList.length > 1){
+        for (let i = 0; i < el.classList.length; i++) {
+          if('.' + el.classList[i] === selector) return true;
+        }
+      }
+      return false;
+    }
   } else if (selectorType === "tag.class") {
-    
+    matchFunction = function(el){
+      let arr = selector.split('.');
+      if(el.tagName.toLowerCase() === arr[0].toLowerCase()){
+        if(el.classList.length === 1) return (el.className === arr[1]);
+        if(el.classList.length > 1){
+          for (let i = 0; i < el.classList.length; i++) {
+            if(el.classList[i] === arr[1]) return true;
+          }
+        }
+      }
+      return false;
+    }
   } else if (selectorType === "tag") {
-    
+    matchFunction = function (el) {
+      return (el.tagName.toLowerCase() === selector.toLowerCase());
+    }
+  }
+  //EXTRA - Selector de Jerarquia
+  if (selectorType === 'child.combinator'){
+    matchFunction = function (el) {
+      let arr = selector.split(' > ');
+      return (el.tagName.toLowerCase() === arr[1] && el.parentNode.tagName.toLowerCase() === arr[0])
+    }
+  }
+  if (selectorType === 'descendant.combinator'){
+    matchFunction = function (el) {
+      let arr = selector.split(' ');
+      if(el.tagName.toLowerCase() === arr[1]){
+        let aux = el;
+        while(aux.parentElement){
+          if(aux.parentNode.tagName.toLowerCase() === arr[0]) return true;
+          aux = aux.parentNode;
+        }
+      }
+      return false;
+    }
   }
   return matchFunction;
 };
