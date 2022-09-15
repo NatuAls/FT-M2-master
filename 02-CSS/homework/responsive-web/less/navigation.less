@@ -1,11 +1,27 @@
 // Código de Nav acá
 nav{
-    margin-bottom: 15px;
+    //----EXTRA - nav fixed-----
+    position: fixed;
+    left: 50%;
+    width: 100%;
+    z-index: 100; //coloca al nav por encima de los demas objetos
+    transform: translate(-50%);
+    background: rgba(246, 246, 246, .9);//agrega opacidad al fondo
+    padding-bottom: 15px - 6px;
+    border-bottom: @nav-border solid 2px;
+    //--------------------------
+
+    //margin-bottom: 15px;
     // display: flex;
     // flex-direction: column;
     // align-items: center;
     // justify-content: space-around;
+
+    //max-width: 800px;
+
+    //----Utilizando mixins-------
     .flex(column, space-around);
+    //----------------------------
 
     h2{
         margin: 15px;
@@ -14,18 +30,28 @@ nav{
     ul{
         // display: flex;
         // justify-content: space-around;
+
+        //----Utilizando mixins-------
         .flex(@justify: space-around);
-        width: 30%;
-        font-size: 1.6rem;
-        font-weight: bold;
+        //----------------------------
+
+        max-width: 800px;
+        width: 100%;
+        padding-left: 190px;
+        padding-right: 190px;
+        margin-right: auto;
+        margin-left: auto;
 
         @media (max-width: @phone){
             width: 90%;
+            padding: 0%;
         }
     }
 
     a {
         text-decoration: none;
         color: @nav-font;
+        font-weight: bold;
+        font-size: small;
     }
 }

@@ -161,7 +161,14 @@ p {
   margin: 0 auto;
 }
 nav {
-  margin-bottom: 15px;
+  position: fixed;
+  left: 50%;
+  width: 100%;
+  z-index: 100;
+  transform: translate(-50%);
+  background: rgba(246, 246, 246, 0.9);
+  padding-bottom: 9px;
+  border-bottom: #F1F1F1 solid 2px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -175,18 +182,24 @@ nav ul {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 30%;
-  font-size: 1.6rem;
-  font-weight: bold;
+  max-width: 800px;
+  width: 100%;
+  padding-left: 190px;
+  padding-right: 190px;
+  margin-right: auto;
+  margin-left: auto;
 }
 @media (max-width: 500px) {
   nav ul {
     width: 90%;
+    padding: 0%;
   }
 }
 nav a {
   text-decoration: none;
   color: #454A59;
+  font-weight: bold;
+  font-size: small;
 }
 footer {
   color: #22283B;
@@ -197,6 +210,10 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.home {
+  position: relative;
+  top: 93px;
 }
 .home .intro img {
   border-radius: 20px;
@@ -259,6 +276,10 @@ footer {
 .home .actual .actual-text p {
   margin-bottom: 26px;
 }
+.home .actual .actual-text .formulario div {
+  display: flex;
+  flex-direction: column;
+}
 .home .actual .actual-text .btn {
   background-color: #22283A;
   color: white;
@@ -269,8 +290,7 @@ footer {
   font-size: 1.5rem;
 }
 .home .actual .actual-text .btn:hover {
-  background-color: blue;
-  color: yellow;
+  background-color: gray;
 }
 @media (max-width: 500px) {
   .home .actual .actual-text .btn {
