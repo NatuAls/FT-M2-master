@@ -53,26 +53,21 @@ var matchFunctionMaker = function(selector) {
     }
   } else if (selectorType === "class") {
     matchFunction = function(el){
-      if(el.classList.length === 1) return ('.' + el.className === selector);
-      if(el.classList.length > 1){
-        for (let i = 0; i < el.classList.length; i++) {
-          if('.' + el.classList[i] === selector) return true;
-        }
+      for (let i = 0; i < el.classList.length; i++) {
+        if('.' + el.classList[i] === selector) return true;
       }
       return false;
     }
   } else if (selectorType === "tag.class") {
     matchFunction = function(el){
       let arr = selector.split('.');
-      if(el.tagName.toLowerCase() === arr[0].toLowerCase()){
-        if(el.classList.length === 1) return (el.className === arr[1]);
-        if(el.classList.length > 1){
-          for (let i = 0; i < el.classList.length; i++) {
-            if(el.classList[i] === arr[1]) return true;
-          }
-        }
-      }
-      return false;
+      // if(el.tagName.toLowerCase() === arr[0].toLowerCase()){
+      //   for (let i = 0; i < el.classList.length; i++) {
+      //     if(el.classList[i] === arr[1]) return true;
+      //   }
+      // }
+      // return false;
+      return (matchFunctionMaker(arr[0])(el) && matchFunctionMaker('.' + arr[1])(el));
     }
   } else if (selectorType === "tag") {
     matchFunction = function (el) {
