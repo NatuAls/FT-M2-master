@@ -4,6 +4,7 @@ import Card from './components/Card.jsx';
 import Cards from './components/Cards.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import data, { Cairns } from './data.js';
+import styles from './styles/SearchBar.module.css'
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         />
       </div>
       <hr />
-      <div>
+      <div className={styles.div}>
         <SearchBar
           onSearch={(ciudad) => alert(ciudad)}
         />
