@@ -1,3 +1,19 @@
-#logoHenry {
+nav img {
   margin-right: 20px;
+}
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #353333;
+}
+
+nav div{
+  display: flex;
+}
+
+nav div h3{
+  color: white;
 }
